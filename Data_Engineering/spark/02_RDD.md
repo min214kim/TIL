@@ -1,0 +1,3 @@
+- 스파크의 연산자 : transform / action 으로 이루어짐
+  - transform에 해당하는 함수들은 지연 연산을 함. RDD가 transform 을 계속 진행했다고 해도, 복원이 가능하다 
+- 
