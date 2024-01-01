@@ -117,6 +117,11 @@ df = pd.read_csv('파일경로')
    - 컬럼 위치 바꾸기 
      - df.reindex(원하는 컬럼 순서 리스트, axis=1)
      - df[원하는 컬럼 순서 리스트]
+   - 컬럼 이름 변경하기
+     - 전체 컬럼명 변경시
+       - `df.columns = ['변경할이름1', '2', ...]`
+     - 지정하여 변경 시 
+       - `df.rename(columns={'변경전이름':'변경후이름'}, inplace=)`
 
 ### 4. 로우
   - 인덱스
@@ -128,13 +133,18 @@ df = pd.read_csv('파일경로')
     - 인덱스 리셋하기 : 기존 인덱스는 컬럼으로
         ```python
         df = df.reset_index()
+    - 인덱스 이름 변경하기
+       - 전체 인덱스명 변경시
+         - `df.index = ['변경할이름1', '2', ...]`
+       - 지정하여 변경 시 
+         - `df.rename(index={'변경전이름':'변경후이름'}, inplace=)`
+    - 여러 행 가져오기 
         ``` 
   - 단일행 가져오기
     ```python
         df.iloc[0] # numeric index 사용
         df.loc[''] # name index 사용
     ``` 
-  - 여러 행 가져오기 
     ```python
     df.iloc[x:y] # integer index based
     df.loc[['index1', 'index1'..]] # string labeled index based

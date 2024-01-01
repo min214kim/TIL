@@ -10,8 +10,13 @@
   - 다시 할당해줘야 저장된다
 > `Series.str.isdigit()`
   - 해당 문자가 숫자인지 boolean 시리즈 형태로 반환한다
+- DF.astype(dtype, copy=True) : 데이터프레임의 데이터타입을 변경해줌
+  - dtype : 변경할 타입 (int, str..)
+  - copy : 사본을 생성할지 여부
+  - 다수의 열의 dtype 변경 시 : 딕셔너리 형식 사용
+    - DF.astyep({'열이름1':'str', '열이름2':'int'...})
 
-2. split를 활용해서 시리즈를 df로 바꾸기
+1. split를 활용해서 시리즈를 df로 바꾸기
 ```python
 tech_finance = ['GOOG,APPL,AMZN', 'JPM,BAC,GS']
 tickers = pd.Series(tech_finance)

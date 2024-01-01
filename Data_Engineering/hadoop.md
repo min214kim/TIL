@@ -1,4 +1,15 @@
 
+1. 하둡 설정파일 확인 
+  - cd $HADOOP_CONF_DIR 로 이동, ls로 확인 
+  1. vim core-site.xml 확인 
+    - localhost:9000 부분이 꼭 있어야함!
+    - 이 아래코드는 namenode 실행 시 오류에 대비한 코드임 
+      - 이 파일에서 9000번 포트가 사용중이라 포트사용불가 에러 발생 시, 포트번호 사용하지 않는거로 변경 or 포트종료 (vscode의 터미널 옆 port 탭 이용)
+    - 밖으로 나가는법 : esc+:+q
+  2. vim hdfs-site.xml 확인
+    - dfs.replication : 데이터 노드 몇개 쓸것인지
+      - 도커 여러개 돌리면 컴퓨터 다운될 수 있어 1로 해둠
+    - 아래 namenode와 datanode 디렉토리의 경로 및 최종폴더명이 정확한지 확인
 
 하둡의  hdfs(저장장치) 핸들링 명령어 
     - 모든 명령어 : hdfs로 시작 그 뒤에 명령내릴 객체 쓰고 그 뒤에 명령어
