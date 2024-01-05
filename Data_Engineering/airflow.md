@@ -156,3 +156,37 @@ make_csv.sh라는 shell프로그램 생성
 - shell 프로그램 : shell(터미널) 기반으로 실행되는 프로그램이다!
 - sh라는걸 먼저 부르고  
   - sh /home/lab21/study/test/make_csv.sh  로 간접적으로 부를 수도 있음 : 이 안의 모든 프로그램이 실행
+
+
+### corona project
+- study/corona_project 안에 corona_extract.py 파일
+-  " .sh파일
+- study/dags 안에 project_v1_dag.py 
+  - dag 객체 생성, 스케줄 관리 객체 생성, 스케줄 작업 객체 생성 
+
+2. transform
+   - study/corona_project 안에 corona_transform.py
+     - pyspark 이용하는 것 
+       - findspark install 해줌
+       - spark session은 새로 만들어서 사용해줘야하기 때문에 관련 함수들을 만들었음 
+     - 기능별로 스파크세션가져오기/데이터가져오기/Df형성하기/데이터 저장하기 함수를 만듦 
+3. transform - dm,dw
+
+
+4. 스케줄러 형성, 실행
+   study/dags 폴더에 project_v2_dags.py
+    - with as 구문 사용  
+with as 구문 사용 
+  airflow 실행 후 웹에서 확인하기
+    그래프??
+
+5. 수정 
+- corona_extract.py 
+  - 코로나 현황 데이터를 기간이 아닌 특정일에 대한 data를 추출 (코드에 이미 반영돼서 수정필요 없)
+- corona_transform_dw.py
+  - 특정일에 대한 데이터로 추출 (이미 코드 반영 완료 수정 필요 없)
+- corona_transform_dm.py
+  - 4개 함수 각각 최신 코로나 현황 데이터를 활용해 데이터 생성 후 insert 진행 
+  - db에서 특정 조건에 맞는 레코드만 가져오는 방법 
+    - test/jdbc_test.py
+    - crorna_transform_dm.py파일에 find_query함수 작성 , patients를 불러올 떄  find_data대신 find_query로 변경 

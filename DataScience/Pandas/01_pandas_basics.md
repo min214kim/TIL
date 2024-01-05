@@ -168,6 +168,9 @@ df = pd.read_csv('파일경로')
       - temp = df.loc[2].copy()
       - df.loc[2] = df.loc[3]
       - df.loc[3] = temp
+  - 중복 행 제거
+    - `df.drop_duplicates()`
+
 
 ## Conditional Filtering
 - 컬럼의 조건에 따라 행을 가져올 수 있다 
@@ -261,7 +264,19 @@ df['column'].map(mymap)
   - df.sample(frac=0.1) : 내 데이터프레임 중 10%의 샘플 반환
 
 
--
+### 5. 옵션
+- 옵션 설정
+  - 생략되지 않게 설정
+    - 컬럼 생략되지 않게 (행은 columns대신 rows)
+    `pd.options.display.max_columns = None` 
+    `pd.set_option('display.max_columns', 5)` : 숫자 넣어서 제한 가능
+  - 소수점 2자리까지만 표시
+   `pd.options.display.float_format = '{:.2f}'.format`
+  - 정규식 표현
+   `pd.reset_option('^display.', silent=True)`
+  -  
+- 옵션 리셋
+  - pd.reset_option('all')
 ---
 
 
