@@ -2,7 +2,7 @@
 - 카테고리별 데이터 접근, 집계가 가능하게 해준다 
 - 범주형 컬럼 (연속X) 에 적용한다
   
-##
+## 그룹바이
 - df.groupby('column') : 해당 컬럼의 unique 값을 카테고리를 만든다.
   - groupby와 한 후 아무것도 하지 않은 것은 lazy groupby다 : 실행 시 딱히 뭘 반환하지 않음, 여기에 뭔가 더 해줘야 df나 시리즈를 반환한다.
   - df.groupby('column').집계함수
@@ -41,3 +41,7 @@
   - df.agg(['std', 'mean']) : 모든 컬럼에 대해 std와 mean 반환
   - df.agg({column1 : [집계함수1,집계함수2], column2 : 집계함수, ...}) : 각 컬럼별로 원하는 집계를 반환할 수 있다 
     - 이때  null이 반환될 수 있다.
+
+## 기타 유용한 것
+- 그룹바이 후 문자열 합치기
+  - `df.groupby('column').agg(lambda x:','.join(set(x)))`
