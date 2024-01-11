@@ -215,7 +215,7 @@ df = pd.read_csv('파일경로')
     - makes the function numpy aware (now the function is aware that it's taking in numpy array)
 
 ### 2. 정보확인
-- 기본 정보 확인
+#### 기본 정보 확인
   |메소드|역할| 
   |---|---|
   |`df.info()`| 데이터프레임에 대한 정보 반환 (null값, 데이터타입, 로우와 컬럼수 등 )|
@@ -227,7 +227,8 @@ df = pd.read_csv('파일경로')
   |`df.sort_values('column', ascending=True/False)` | 해당 컬럼을 기준으로 정렬|
   |`df.duplicated()` | 같은 컬럼에 같은 값이 있다면true반환 (오리지널에는 false, 겹치는 값부터 true 반환)
   | `df.drop_duplicates()`| 중복되는 값 삭제|
-- 통계정보 확인
+
+#### 통계정보 확인
 
   |메소드|역할| 
   |---|---|
@@ -237,7 +238,7 @@ df = pd.read_csv('파일경로')
   |`df.corr()` | 컬럼들끼리의 상관관계 반환
 
 
-- 기타
+#### 기타
  - `df['column'].value_counts()` : 해당 컬럼에서 각 값의 개수가 몇개인지 반환
  - `df['column'].unique()` : 해당 컬럼에서 중복 없이 값을 반환
  - `df['column'].nunique` : 해당 컬럼에서 중복 없이 값이 몇가지가 있는지 반환
@@ -274,11 +275,13 @@ df['column'].map(mymap)
    `pd.options.display.float_format = '{:.2f}'.format`
   - 정규식 표현
    `pd.reset_option('^display.', silent=True)`
-  -  
+-  `pd.set_option('max_colwidth',n)` 
 - 옵션 리셋
   - pd.reset_option('all')
 ---
+### 6. 기타 판다스 혹은 전처리 시 유용한 것
+- `leteral_eval()` : 문자열로 되어있는 딕셔너리 형태를 딕셔너리로 반환해주는 함수, 딕셔너리 외 다른 타입에 대해서도 문자열이 의미하는 객체로 만들어줌
+  - df['columns'].apply(literal_eval) : 이런식으로 apply와 함께 사용!
 
-
-  - `df.transpose()`: 컬럼과 로우를 바꿔 반환
-  - np.round(data, num) : num-몇번째 소수점까지 반환할 것인지 
+- `df.transpose()`: 컬럼과 로우를 바꿔 반환
+- np.round(data, num) : num-몇번째 소수점까지 반환할 것인지 
