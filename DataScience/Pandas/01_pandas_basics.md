@@ -246,7 +246,15 @@ df = pd.read_csv('파일경로')
  - `df['column'].between(x, y, inclusive=True/False)` : 컬럼값 이  x 와 y 사이에 있는지 boolean으로 반환 : 조건인덱싱으로 사용 가능! 
  - `df.nlargest(x, 'column')` : 해당 컬럼에서 값이 가장 큰 순서부터 x개의 행을 반환 
    - nsmallest도 있음
+ - `leteral_eval()` : 문자열로 되어있는 딕셔너리 형태를 딕셔너리로 반환해주는 함수, 딕셔너리 외 다른 타입에 대해서도 문자열이 의미하는 객체로 만들어줌
+    - df['columns'].apply(literal_eval) : 이런식으로 apply와 함께 사용!
 
+ - `df.transpose()`: 컬럼과 로우를 바꿔 반환
+ - np.round(data, num) : num-몇번째 소수점까지 반환할 것인지 
+ - `df.explode(column, ignore_index=T/F)` : 리스트 형태의 값을 여러 행으로 전개 
+   - column : 전개할 리스트형태의 데이터가 있는 열
+   - ignore_index : True일 경우 기존 인덱스 무시하고 0~n형태로 인덱스 반환
+   - 해당 컬럼에 있는 리스트 형태의 값들이 다 풀어져서 새로운 행으로 들어가게 된다!
 ### 3. 값 대체하기
 - replace함수 사용
 ```python
@@ -278,10 +286,3 @@ df['column'].map(mymap)
 -  `pd.set_option('max_colwidth',n)` 
 - 옵션 리셋
   - pd.reset_option('all')
----
-### 6. 기타 판다스 혹은 전처리 시 유용한 것
-- `leteral_eval()` : 문자열로 되어있는 딕셔너리 형태를 딕셔너리로 반환해주는 함수, 딕셔너리 외 다른 타입에 대해서도 문자열이 의미하는 객체로 만들어줌
-  - df['columns'].apply(literal_eval) : 이런식으로 apply와 함께 사용!
-
-- `df.transpose()`: 컬럼과 로우를 바꿔 반환
-- np.round(data, num) : num-몇번째 소수점까지 반환할 것인지 

@@ -111,8 +111,11 @@
         ```python
             STATIC_URL = "static/"
 
-            # 서버에 
+            # 서버에 tatic 파일 경로 
             STATICFILES_DIRS = [
                 BASE_DIR / 'static'
             ]
         ```  
+    -   static폴더 > js폴더 생성, 그 안에 강의자료의 iris_predict.js(우리가 만든 코드? )와 jquere-3.7.1.min.js파일 넣기 (이건 제공되어지는 코드임 )
+    -   urls.py 에 path 추가 : path('iris_predict_ajax/' views.iris_predict_ajax, name='iris_predict_ajax')
+    -   html파일 맨 위에 {% load static %} 넣어줌 
