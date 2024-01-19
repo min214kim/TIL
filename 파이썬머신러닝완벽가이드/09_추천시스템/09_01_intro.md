@@ -217,9 +217,35 @@ genre_sim_sorted_ind = genre_sim.argsort()[:, ::-1]
    from sklearn.metrixs.pairwise import cosine_similarity
 
    item_sim = cosine_similarity(ratings_matrix_T, ratings_matrix_T)
-   
-```
-### 3. 
 
-### 4. 
+   # 유사도 넘파이 행렬에 영화명 매핑해서 DataFrame로 반환
+   item_sim_df = pd.DataFrame(data=item_sim, index=ratings_matrix.columns, columns=ratings_matrix.columns)
+
+```
+- 유사도가 높은 영화 추출하기 : input으로 넣은 영화와 가장 비슷한 사용자 평점을 받은 영화를 추천해준다
+```python
+   item_sim_df['Godfather, The (1972)'].sort_values(ascending=False)[:6]
+```
+### 3. 아이템 기반 최근접 이웃 협업 필터링으로 개인화된 영화 추천
+- 앞은 영화 간의 유사도만으로 추천함. 3번에서는 개인에게 최적화된 영화 추천 구현
+- 개인이 아직 관람하지 않은 영화 추천! : 관람하지 않은 영화에 대해 아이템 유사도 + 기존에 관람한 영화의 평점 데이터를 기반으로 모든 영화의 예측 평점 계산 후 추천 
+- 개인화된 예측 평점은 아래의 식으로 구한다. 
+![협업필터링식](https://velog.velcdn.com/images/ranyjoon/post/d040df10-cf7b-4692-9976-18e661f73fe3/image.png)
+  - Si,N : 아이템 i와 가장 유사도가 높은 Top-N개 아이템의 유사도 벡터 
+  - Ru,N : 사용자 u의 아이템 i와 가장 유사도가 높은 Top-N개 아이템에 대한 실제 평점 벡터 
+<br>
+<br>
+<br>
+- Rui는 사용자 u의 모든 영화에 대한 실제 평점과 영화 i의 다른 모든 영화와의 코사인 유사도를 벡터 내적 곲 한 값을 정규화를 위해 SiN으로 나눈 것 
+```python
+   # N의 범위에 제약을 두지 않을 경우
+   def predict_rating(ratings_arr, item_sim_arr):
+      ratings_pred = ratings_arr.dot(item_sim_arr)/np.array([np.abs(item_sim_arr).sum(axis=1)])
+   # 위의 함수 이용해 개인화된 예측 평점 구하기 
+   ratings_pred = predict_rating(ratings_matrix.values), item_sim_df.values
+   ratings_pred_matrix = pd.DataFrame(data=ratings_pred, index=ratings_matirx.index, columns=ratings_matrix.columns)
+```
+### 4. MSE 줄이기 
+- 평점 부여하지 않은 영화는 0으로 부여했기 때문에, 기존에 평점을 부여한 영화에 대해서만 MSE 측정 
+- 
 ## 4. 잠재 요인 협업 필터링 - 코드

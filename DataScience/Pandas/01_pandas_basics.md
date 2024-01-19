@@ -158,6 +158,9 @@ df = pd.read_csv('파일경로')
     ``` 
     - 마찬가지로 바로 적용되지 않으므로, inplace=True 혹은 다시 변수에 대입을 해줘야한다.
     - integer based index활용하려면 df.iloc[x:y]로 슬라이싱을 해줄 수 있다.
+  - 조건으로 행 삭제하기
+    - idx = df[df['조건']=='조건'].index
+    - df.drop(idx,axis=0)
   - 행 추가하기
     ```python
     df.append(시리즈데이터)
