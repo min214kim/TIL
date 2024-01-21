@@ -237,15 +237,31 @@ genre_sim_sorted_ind = genre_sim.argsort()[:, ::-1]
 <br>
 <br>
 - Rui는 사용자 u의 모든 영화에 대한 실제 평점과 영화 i의 다른 모든 영화와의 코사인 유사도를 벡터 내적 곲 한 값을 정규화를 위해 SiN으로 나눈 것 
+- Top-N 유사도를 가지는 영화 유사도 벡터만 적용하기 위해서는 행, 열별로 for 루프를 반복 수행하며 계산해야하기 때문에 시간이 오래 걸린다
 ```python
    # N의 범위에 제약을 두지 않을 경우
-   def predict_rating(ratings_arr, item_sim_arr):
+   def predict_rating(ratings_arr, item_sim_arr, n=20):
+      # 사용자-아이템 평점 행렬 크기만큼 0으로 채운 예측 행렬 초기화
+      pred = np.zeros(ratings_arr.shape)
+
+      # 사용자-아이템 평점 행렬의 열 크기만큼 루프 수행
       ratings_pred = ratings_arr.dot(item_sim_arr)/np.array([np.abs(item_sim_arr).sum(axis=1)])
    # 위의 함수 이용해 개인화된 예측 평점 구하기 
    ratings_pred = predict_rating(ratings_matrix.values), item_sim_df.values
    ratings_pred_matrix = pd.DataFrame(data=ratings_pred, index=ratings_matirx.index, columns=ratings_matrix.columns)
 ```
 ### 4. MSE 줄이기 
-- 평점 부여하지 않은 영화는 0으로 부여했기 때문에, 기존에 평점을 부여한 영화에 대해서만 MSE 측정 
-- 
+- 평점 부여하지 않은 영화는 0으로 부여했으나 개인화된 예측 점수는 평점을 주지 않은 영화에 대해서도 아이템 유사도에 기반해 평점을 예측했으므로, 기존에 평점을 부여한 영화에 대해서만 MSE 측정 
+```python
+   def get_mse(pred, actual):
+      # 평점이 있는 실제 영화만 추출
+      pred = pred[actual.nonzero()].flatten()
+      actual = actual[actual.nonzero()].flatten()
+      return mean_squared_error(pred, actual)
+```
+  - `np.flatten()` : 차원을 1차원으로
+    - 복사본 만들어줌
+    - order = 'C' : row, 'F' : column 순서로 flatten
+  - np.nonzero() : 값이 0이 아닌 인덱스값 반환
+    - 반환된 결과에서 인덱스가 같은 것을 묶으면 0이 아닌 값들의 인덱스가 됨 
 ## 4. 잠재 요인 협업 필터링 - 코드
