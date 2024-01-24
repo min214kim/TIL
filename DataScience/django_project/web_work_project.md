@@ -1,4 +1,4 @@
-# 01/12
+# Django Project 예시 
 - django project 생성 시 한글이 없는 디렉토리에!
    - 워크스페이스 저장
    - shell 말고 커멘드 터미널 사용 
@@ -119,17 +119,60 @@
   - ai_app > ulrs.py 에서 `path("iris_predict/", views.iris_predict, name='iris_predict')` 추가 
   - index.html 에서 `<form id='predict-form' action="{% url 'iris_predict'%}" method="post">` 추가
 ### ver.4 페이지 새로고침 대신 결과 부분만 바뀌도록 (Ajax 사용)
-    - 확인 버튼 눌렀을 때 새로운 페이지가 아닌 부분 데이터만 변경하는 작업
-    -  static폴더 : 프로젝트 폴더에 생성 후 관련 js파일 저장 (강의자료에 있는 것 저장하면 됨!)
-       -  settings.py에 아래 내용 추가
+  - 확인 버튼 눌렀을 때 새로운 페이지가 아닌 부분 데이터만 변경하는 작업
+  - static폴더 : javascript css 이미지같은 정적 파일들은 서버 실행하는 파일이 아닌 경우 static 폴더에 데이터 넣고 클라이언트 쪽으로 날아갈 수 있게끔 서버를 세팅해준다. 
+  - 프로젝트 폴더 안에 static폴더 생성 후 관련 js파일 저장 (강의자료에 있는 것 저장하면 됨!)
+    -  settings.py에 static 경로 추가
+
         ```python
             STATIC_URL = "static/"
 
-            # 서버에 tatic 파일 경로 
+            # 서버에 static 파일 경로 
             STATICFILES_DIRS = [
                 BASE_DIR / 'static'
             ]
         ```  
-    -   static폴더 > js폴더 생성, 그 안에 강의자료의 iris_predict.js(우리가 만든 코드? )와 jquere-3.7.1.min.js파일 넣기 (이건 제공되어지는 코드임 )
-    -   urls.py 에 path 추가 : path('iris_predict_ajax/' views.iris_predict_ajax, name='iris_predict_ajax')
-    -   html파일 맨 위에 {% load static %} 넣어줌 
+    -   static > js폴더 생성, 그 안에 강의자료의 iris_predict.js(만들어야하는 코드)와 jquere-3.7.1.min.js파일 넣기 (이건 제공되어지는 코드임 )
+    -   urls.py 에 path 추가 :`path('iris_predict_ajax/' views.iris_predict_ajax, name='iris_predict_ajax')`
+    -   index.html파일 수정
+        -   html파일 맨 위에 `{% load static %}` 넣어줌 
+
+        ```python
+            <head>
+                <meta charset="UTF-8">
+                <title>index 페이지</title>
+                <script src="{% static '/js/jquery-3.7.1.min.js'%}"></script>
+                <script src="{% static '/js/iris_predict.js'%}"></script>
+            </head>
+        ```   
+        - 위 코드 추가 : 클라이언트 쪽으로 날아감? 
+    - views 수정
+      - iris_predict_ajax 함수 생성, `return JsonResponse({'class_name':class_name})` 로 변경
+      - `from django.http import JsonResponse` 추가
+  - 이미지 등도 static파일에 추가 
+  - 개발자도구에 static파일이 잘 뜨는지 확인!
+  - index.html 파일에서 확인 버튼에 action이 포함되지 않아도 실행이 된다! 
+### Ajax javascript 파일
+```javascript
+    $(document).ready(function () { // 다 준비가 되었다면 
+    $("#predict-form").submit(function (e) { // id predict-form 태그내에서 submit(버튼클릭)이 발생하면 
+        e.preventDefault(); // 함수를 실행 : submit 이벤트(서버에 페이지 새로 요청) 를 삭제 
+        
+        $.ajax({ // ajax가 서버에 요청보내고 응답되는 데이터도 받는다 
+            type: 'POST',
+            url: '/iris_predict_ajax/', // 요청할 서버 url 
+            data: $(this).serialize(), // ajax가 적용되는 form태그내 form객체(input 태그 등) 내의 value값을 모두 묶어서 전송 
+           
+            success: function (response) { // 요청에 의한 응답이 성공하면, 서버가 준 데이터는 response 변수에 받음 
+                console.log(response.class_name);
+                $("#prediction_result").text("예측 결과: " + response.class_name); // prediction_result id 내에 예측결과와 response에서 받은 class_name을 넣어라!
+            },
+            error: function (error) { // 요청에 의한 응답이 실패 
+                console.log(error);
+            }
+        });
+    });
+});
+```
+- `.serialize()` : 표준 URL 인코딩 표기법으로 텍스트 문자열을 생성 
+  - form 태그에 사용 시 form의 객체와 값을 한번에 받을 수 있음 
