@@ -5,6 +5,7 @@
 - str. + tab 로 정보 확인!
 > `str.split('')`
   - ''안의 값을 기준으로 나눠준다
+  - `df['column'].str.split(' ').get(2)` : split후 리스트에서 두번째 인덱스값을 가져옴
 > `Series.str.upper()`
   - 해당 시리즈 안의 str을 모두 대문자로 바꾼다
   - 다시 할당해줘야 저장된다

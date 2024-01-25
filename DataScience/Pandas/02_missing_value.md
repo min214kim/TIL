@@ -6,8 +6,10 @@
   - 결측치의 실제 값이 무엇인지 알 수 없기 때문에, np.nan == np.nan -> Flase!
 
 ## 결측치 관련 메소드
-- `df.isnull()` : null인지 아닌지 boolean값 반환 
+- `df.isnull()`, `df.isna()` : null인지 아닌지 boolean값 반환 
 - `df.notnull()` : 위와 반대 
+- `df.isna().any(axis=1)` : 각 행에 결측치가 있으면 boolean값 반환 (조건검색에서 사용)
+- `df[df.isna().any(axis=1)].index` : 결측치의 인덱스 반환
 
 ## 결측치 처리의 옵션
 1. 가지고 있기
