@@ -103,3 +103,7 @@
 SELECT COUNT(*) FROM film_category JOIN category ON film_category.category_id = category.category_id WHERE category_id > 5 GROUP BY category_id LIMIT 0, 1000
 Error Code: 1052. Column 'category_id' in where clause is ambiguous
 Error Code: 1052. Column 'category_id' in group statement is ambiguous
+
+6. CASE WHEN THEN
+   - CASE WHEN [조건] THEN '반환값' WHEN [조건] THEN '반환값' ELSE '조건에 해당하지 않을 때 반환값' END
+     - AS ~ 로 Alias 가능

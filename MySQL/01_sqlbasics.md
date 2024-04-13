@@ -94,9 +94,9 @@
 
 * 조건 조회
   * SELECT name FROM table WHERE : 조건을 걸어 조회할 수 있다.
-  * SELECT name FROM table WHERE 'X%' : X로 시작하는 문자가 조회된다.
-  * SELECT name FROM table WHERE '%X%' : X가 끼여있는 문자가 조회된다.
-  * SELECT name FROM table WHERE 'X__' : X 뒤에 _의 숫자만큼 문자가 들어간 것이 조회된다. 
+  * SELECT name FROM table WHERE 필드명 LIKE 'X%' : X로 시작하는 문자가 조회된다.
+  * SELECT name FROM table WHERE 필드명 LIKE '%X%' : X가 끼여있는 문자가 조회된다.
+  * SELECT name FROM table WHERE 필드명 LIKE 'X__' : X 뒤에 _의 숫자만큼 문자가 들어간 것이 조회된다. 
 ### 논리연산자
 * AND 
 * OR

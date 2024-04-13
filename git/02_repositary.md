@@ -50,6 +50,10 @@
   * clone로 가져온건 clone받았던 주소를 origin으로 갖고있다.
   * git push [저장소이름] [브랜치이름]를 사용한다.
 
+* 로컬에서 작업한것을 커밋하지 않고 원격저장소 상태로 리셋하기
+  * `git fetch origin` 
+  * `git reset --hard origin/main`
+
 <br>
 
 ### 3. 다시 회사
