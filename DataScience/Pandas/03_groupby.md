@@ -9,6 +9,7 @@
     - .mean()
     - .count()
     - .describe()
+    - .corr()
 - 여러 개의 컬럼으로 그룹핑하기 
   - df.groupby(['column1', 'column2'])
   - multi-level index를 반환한다 
@@ -45,3 +46,11 @@
 ## 기타 유용한 것
 - 그룹바이 후 문자열 합치기
   - `df.groupby('column').agg(lambda x:','.join(set(x)))`
+- 그룹별 사이즈
+  - `df_group.size`
+- 서브그룹 뽑기
+  - `df_group.get_group('그룹명') `
+  - .mean(), .corr() 등의 연산 가능 
+- 해당 그룹, 해당 컬럼에서 작은 값 n개 뽑기
+  - `df_group.get_group(그룹명)["컬럼명"].nsmallest(n)`
+  - 반대 : `.nlargest(n)`

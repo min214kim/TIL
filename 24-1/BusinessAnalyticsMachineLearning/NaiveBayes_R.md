@@ -179,4 +179,4 @@ gain <- gains(ifelse(valid.df$Flight.Status == "delayed", 1, 0), pred.prob[ ,1],
 - accuracy 희생하고 sensitivity올리기
   ```r
   pred.probbth <- factor(ifelse(pred.prob[, 1] >= 0.3, "delayed", "ontime"))
-  ```
+  ``` 
