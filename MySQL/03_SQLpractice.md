@@ -57,8 +57,6 @@
     - 해당 컬럼값이 없으면 에러가 난다 (데이터의 무결성)
       - 데이터 무ㅕㄹ성 : 두 테이블 간 관계에 있어 데이터의 정확성을 보장하는 제약 조건 
     - 현업에서는 꼭 필요한 경우에만 사용한다 (비즈니스 로직 처리가 어려워지기 때문)
-
-
 2. GROUPBY 와 HAVING
    - having은 groupby와 함께 사용한다.
    - 집계함수로 조건비교를 할 때 사용한다.
@@ -99,11 +97,12 @@
    - 여러 개의 or 대신 사용이 가능 
    - X=a or X=b or X=c == X in (a, b, c)
 
-23:48:38	SELECT category_id FROM film_category  JOIN category ON film_category.category_id = category.category_id LIMIT 0, 1000	Error Code: 1052. Column 'category_id' in field list is ambiguous	0.00057 sec
-SELECT COUNT(*) FROM film_category JOIN category ON film_category.category_id = category.category_id WHERE category_id > 5 GROUP BY category_id LIMIT 0, 1000
-Error Code: 1052. Column 'category_id' in where clause is ambiguous
-Error Code: 1052. Column 'category_id' in group statement is ambiguous
-
 6. CASE WHEN THEN
    - CASE WHEN [조건] THEN '반환값' WHEN [조건] THEN '반환값' ELSE '조건에 해당하지 않을 때 반환값' END
      - AS ~ 로 Alias 가능
+
+7. NULL 처리하기 
+   - WHERE 절 이용 
+     - SELECT * FROM table WHERE column IS NOT NULL
+   - COALESCE 사용 (0으로 대체)
+     - SELECT col1, COALESCE(col2, 0) as allias FROM table
